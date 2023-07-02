@@ -1,5 +1,6 @@
 import {createGlobalStyle} from "styled-components";
 import {CartContext, CartContextProvider} from "@/components/CartContext";
+import FooterComponent from "@/components/Footer";
 
 const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
@@ -16,6 +17,7 @@ export default function App({ Component, pageProps }) {
         <GlobalStyles/>
         <CartContextProvider>
             <Component {...pageProps} />
+            <FooterComponent/>
         </CartContextProvider>
     </>
   );

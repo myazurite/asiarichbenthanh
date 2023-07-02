@@ -70,6 +70,7 @@ export default function ProductPage({ product, similarProducts }) {
                     </div>
                 </ColWrapper>
 
+                {/* Display similar products */}
                 <div>
                     <h2>Sản phẩm cùng loại</h2>
                     <StyledProductsGrid>

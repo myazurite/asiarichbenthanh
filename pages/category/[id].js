@@ -10,10 +10,13 @@ import axios from "axios";
 import Spinner from "@/components/Spinner";
 
 const CategoryHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
+  
+  @media screen and (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
   h1 {
     font-size: 1.5em;
   }
@@ -99,7 +102,6 @@ export default function CategoryPage({
                             </Filter>
                         ))}
                         <Filter>
-                            <span>Sắp xếp:</span>
                             <select
                                 value={sort}
                                 onChange={ev => {

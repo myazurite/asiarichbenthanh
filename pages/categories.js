@@ -10,10 +10,10 @@ import Link from "next/link";
 
 const CategoryGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr); // 4 columns on PC
   gap: 20px;
-  @media screen and (min-width: 768px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+  @media screen and (max-width: 767px) {
+    grid-template-columns: 1fr 1fr; // 1 column on mobile
   }
 `;
 

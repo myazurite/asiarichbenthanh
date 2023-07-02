@@ -9,6 +9,7 @@ const ProductWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
 `;
 
 const WhiteBox = styled(Link)`
@@ -40,7 +41,8 @@ const Title = styled(Link)`
 
 const ProductInfoBox = styled.div`
   margin-top: auto;
-  
+  display: flex;
+  flex-direction: column;
 `;
 
 const PriceRow = styled.div`
