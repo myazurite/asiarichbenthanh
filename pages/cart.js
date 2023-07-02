@@ -64,7 +64,7 @@ const SkeletonRow = styled(Skeleton)`
 `;
 
 export default function CartPage() {
-    const {cartProducts, addProduct, removeProduct} = useContext(CartContext);
+    const {cartProducts, addProduct, removeProduct, clearCart} = useContext(CartContext);
     const [products, setProducts] = useState([]);
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
@@ -129,6 +129,7 @@ export default function CartPage() {
                 name, phone, address, cartProducts
             });
             if (response.data.url) {
+                clearCart();
                 window.location.href = response.data.url;
             }
         }
