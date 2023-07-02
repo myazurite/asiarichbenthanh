@@ -2,12 +2,12 @@ import Header from "@/components/Header";
 import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from "@/components/Button";
-import {useContext, useEffect, useState} from "react";
-import {CartContext} from "@/components/CartContext";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "@/components/CartContext";
 import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -30,12 +30,8 @@ const ProductInfoCell = styled.td`
 `;
 
 const ProductImageBox = styled.div`
-  //width: 100px;
-  //height: 100px;
-  //border: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  //border-radius: 10px;
 
   img {
     max-width: 70px;
@@ -44,8 +40,6 @@ const ProductImageBox = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    //width: 100px;
-    //height: 100px;
     img {
       max-width: 100px;
       max-height: 100px;
@@ -62,12 +56,8 @@ const QuantityLabel = styled.span`
   }
 `;
 
-const CityHolder = styled.div`
-  display: flex;
-  gap: 5px;
-`;
 export default function CartPage() {
-    const {cartProducts, addProduct, removeProduct} = useContext(CartContext);
+    const { cartProducts, addProduct, removeProduct } = useContext(CartContext);
     const [products, setProducts] = useState([]);
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
@@ -76,14 +66,17 @@ export default function CartPage() {
     const [addressError, setAddressError] = useState('');
     const [phoneError, setPhoneError] = useState('');
     const router = useRouter();
+
     const handleNameChange = (ev) => {
         setName(ev.target.value);
         setNameError(''); // Clear error message
     }
+
     const handleAddressChange = (ev) => {
         setAddress(ev.target.value);
         setAddressError(''); // Clear error message
     }
+
     const handlePhoneChange = (ev) => {
         setPhone(ev.target.value);
         setPhoneError(''); // Clear error message
@@ -91,7 +84,7 @@ export default function CartPage() {
 
     useEffect(() => {
         if (cartProducts.length > 0) {
-            axios.post('/api/cart', {ids: cartProducts})
+            axios.post('/api/cart', { ids: cartProducts })
                 .then(response => {
                     setProducts(response.data);
                 });
@@ -127,7 +120,7 @@ export default function CartPage() {
             const response = await axios.post('/api/checkout', {
                 name, phone, address, cartProducts
             });
-            if(response.data.url) {
+            if (response.data.url) {
                 window.location.href = response.data.url;
             }
         }
@@ -146,7 +139,7 @@ export default function CartPage() {
     if (router.isReady && router.asPath.includes('success')) {
         return (
             <>
-                <Header/>
+                <Header />
                 <Center>
                     <ColumnsWrapper>
                         <Box>
@@ -161,7 +154,7 @@ export default function CartPage() {
 
     return (
         <>
-            <Header/>
+            <Header />
             <Center>
                 <ColumnsWrapper>
                     <Box>
@@ -172,36 +165,36 @@ export default function CartPage() {
                         {products?.length > 0 && (
                             <Table>
                                 <thead>
-                                    <tr>
-                                        <th>Sản phẩm</th>
-                                        <th>Số lượng</th>
-                                        <th>Giá</th>
-                                    </tr>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    {products.map(product => (
-                                        <tr key={product.id}>
-                                            <ProductInfoCell>
-                                                <ProductImageBox>
-                                                    <img src={product.images[0]} alt=""/>
-                                                </ProductImageBox>
-                                                {product.title}
-                                            </ProductInfoCell>
-                                            <td>
-                                                <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
-                                                <QuantityLabel>
-                                                    {cartProducts.filter(id => id === product._id).length}
-                                                </QuantityLabel>
-                                                <Button onClick={() => moreOfThisProduct(product._id)}>+</Button>
-                                            </td>
-                                            <td>{formatNumber(cartProducts.filter(id => id === product._id).length * product.price)} ₫</td>
-                                        </tr>
-                                    ))}
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{formatNumber(total)} ₫</td>
+                                {products.map(product => (
+                                    <tr key={product.id}>
+                                        <ProductInfoCell>
+                                            <ProductImageBox>
+                                                <img src={product.images[0]} alt="" />
+                                            </ProductImageBox>
+                                            {product.title}
+                                        </ProductInfoCell>
+                                        <td>
+                                            <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
+                                            <QuantityLabel>
+                                                {cartProducts.filter(id => id === product._id).length}
+                                            </QuantityLabel>
+                                            <Button onClick={() => moreOfThisProduct(product._id)}>+</Button>
+                                        </td>
+                                        <td>{formatNumber(cartProducts.filter(id => id === product._id).length * product.price)} ₫</td>
                                     </tr>
+                                ))}
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{formatNumber(total)} ₫</td>
+                                </tr>
                                 </tbody>
                             </Table>
                         )}
@@ -217,7 +210,7 @@ export default function CartPage() {
                                 name='name'
                                 required
                             />
-                            { nameError && <span style={{ color: 'red' }}>{nameError}</span> }
+                            {nameError && <span style={{ color: 'red' }}>{nameError}</span>}
                             <Input
                                 type="tel"
                                 placeholder='Số điện thoại'
@@ -226,7 +219,7 @@ export default function CartPage() {
                                 name='phone'
                                 required
                             />
-                            { phoneError && <span style={{ color: 'red' }}>{phoneError}</span> }
+                            {phoneError && <span style={{ color: 'red' }}>{phoneError}</span>}
                             <Input
                                 type="text"
                                 placeholder='Địa chỉ'
@@ -235,7 +228,7 @@ export default function CartPage() {
                                 name='address'
                                 required
                             />
-                            { addressError && <span style={{ color: 'red' }}>{addressError}</span> }
+                            {addressError && <span style={{ color: 'red' }}>{addressError}</span>}
                             <Button
                                 black
                                 block
