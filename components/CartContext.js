@@ -8,20 +8,16 @@ export function CartContextProvider({children}) {
 
     useEffect(() => {
         ls?.setItem('cart', JSON.stringify(cartProducts));
-    }, [cartProducts]);
+    }, [ls, cartProducts]);
 
     useEffect(() => {
-        if (ls && ls.getItem('cart')) {
+        if (ls?.getItem('cart')) {
             const storedCartProducts = JSON.parse(ls.getItem('cart'));
             if(storedCartProducts && storedCartProducts.length > 0) {
                 setCartProducts(storedCartProducts);
-            } else {
-                setCartProducts([]);
             }
-        } else {
-            setCartProducts([]);
         }
-    }, []);
+    }, [ls]);
 
     function addProduct(productId) {
         setCartProducts(prev => [...prev,productId]);

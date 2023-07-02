@@ -91,7 +91,7 @@ export default function CategoryPage({
                                 <select
                                     onChange={ev => handleFilterChange(prop.name, ev.target.value)}
                                     value={filtersValues.find(f => f.name === prop.name).value}>
-                                    <option value="all">All</option>
+                                    <option value="all">Tất cả</option>
                                     {prop.values.map(val => (
                                         <option key={val} value={val}>{val}</option>
                                     ))}
@@ -99,17 +99,17 @@ export default function CategoryPage({
                             </Filter>
                         ))}
                         <Filter>
-                            <span>Sort:</span>
+                            <span>Sắp xếp:</span>
                             <select
                                 value={sort}
                                 onChange={ev => {
                                     setSort(ev.target.value);
                                     setFiltersChanged(true);
                                 }}>
-                                <option value="price-asc">price, lowest first</option>
-                                <option value="price-desc">price, highest first</option>
-                                <option value="_id-desc">newest first</option>
-                                <option value="_id-asc">oldest first</option>
+                                <option value="price-asc">Giá, tăng dần</option>
+                                <option value="price-desc">Giá, giảm dần</option>
+                                <option value="_id-desc">Mới đến cũ</option>
+                                <option value="_id-asc">Cũ đến mới</option>
                             </select>
                         </Filter>
                     </FiltersWrapper>
