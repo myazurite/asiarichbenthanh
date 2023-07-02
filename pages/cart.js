@@ -157,7 +157,7 @@ export default function CartPage() {
             setProducts([]);
             setLoading(false);
         }
-    }, [cartProducts]);
+    }, []);
 
     if (router.isReady && router.asPath.includes('success')) {
         return (
