@@ -2,12 +2,13 @@ import Header from "@/components/Header";
 import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from "@/components/Button";
-import { useContext, useEffect, useState } from "react";
-import { CartContext } from "@/components/CartContext";
+import {useContext, useEffect, useState} from "react";
+import {CartContext} from "@/components/CartContext";
 import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
+import {Skeleton} from "@mui/material";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -56,8 +57,14 @@ const QuantityLabel = styled.span`
   }
 `;
 
+const SkeletonRow = styled(Skeleton)`
+  height: 70px;
+  width: 100%;
+  margin-bottom: 10px;
+`;
+
 export default function CartPage() {
-    const { cartProducts, addProduct, removeProduct } = useContext(CartContext);
+    const {cartProducts, addProduct, removeProduct} = useContext(CartContext);
     const [products, setProducts] = useState([]);
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
@@ -65,6 +72,7 @@ export default function CartPage() {
     const [nameError, setNameError] = useState('');
     const [addressError, setAddressError] = useState('');
     const [phoneError, setPhoneError] = useState('');
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
 
     const handleNameChange = (ev) => {
@@ -84,7 +92,7 @@ export default function CartPage() {
 
     useEffect(() => {
         if (cartProducts.length > 0) {
-            axios.post('/api/cart', { ids: cartProducts })
+            axios.post('/api/cart', {ids: cartProducts})
                 .then(response => {
                     setProducts(response.data);
                 });
@@ -136,10 +144,24 @@ export default function CartPage() {
         return new Intl.NumberFormat('de-DE').format(num);
     }
 
+    useEffect(() => {
+        setLoading(true);
+        if (cartProducts.length > 0) {
+            axios.post('/api/cart', {ids: cartProducts})
+                .then(response => {
+                    setProducts(response.data);
+                    setLoading(false);
+                });
+        } else {
+            setProducts([]);
+            setLoading(false);
+        }
+    }, [cartProducts]);
+
     if (router.isReady && router.asPath.includes('success')) {
         return (
             <>
-                <Header />
+                <Header/>
                 <Center>
                     <ColumnsWrapper>
                         <Box>
@@ -154,49 +176,60 @@ export default function CartPage() {
 
     return (
         <>
-            <Header />
+            <Header/>
             <Center>
                 <ColumnsWrapper>
                     <Box>
                         <h2>Giỏ hàng</h2>
-                        {!cartProducts?.length && (
-                            <div>Giỏ hàng trống</div>
-                        )}
-                        {products?.length > 0 && (
-                            <Table>
-                                <thead>
-                                <tr>
-                                    <th>Sản phẩm</th>
-                                    <th>Số lượng</th>
-                                    <th>Giá</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {products.map(product => (
-                                    <tr key={product.id}>
-                                        <ProductInfoCell>
-                                            <ProductImageBox>
-                                                <img src={product.images[0]} alt="" />
-                                            </ProductImageBox>
-                                            {product.title}
-                                        </ProductInfoCell>
-                                        <td>
-                                            <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
-                                            <QuantityLabel>
-                                                {cartProducts.filter(id => id === product._id).length}
-                                            </QuantityLabel>
-                                            <Button onClick={() => moreOfThisProduct(product._id)}>+</Button>
-                                        </td>
-                                        <td>{formatNumber(cartProducts.filter(id => id === product._id).length * product.price)} ₫</td>
-                                    </tr>
-                                ))}
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td>{formatNumber(total)} ₫</td>
-                                </tr>
-                                </tbody>
-                            </Table>
+                        {loading ? (
+                            <>
+                                <SkeletonRow variant="text"/>
+                                <SkeletonRow variant="text"/>
+                                <SkeletonRow variant="text"/>
+                                <SkeletonRow variant="text"/>
+                                <SkeletonRow variant="text"/>
+                            </>
+                        ) : (
+                            (!cartProducts?.length && (
+                                <div>Giỏ hàng trống</div>
+                            )) || (products?.length > 0 && (
+                                <Table>
+                                    <Table>
+                                        <thead>
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {products.map(product => (
+                                            <tr key={product.id}>
+                                                <ProductInfoCell>
+                                                    <ProductImageBox>
+                                                        <img src={product.images[0]} alt=""/>
+                                                    </ProductImageBox>
+                                                    {product.title}
+                                                </ProductInfoCell>
+                                                <td>
+                                                    <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
+                                                    <QuantityLabel>
+                                                        {cartProducts.filter(id => id === product._id).length}
+                                                    </QuantityLabel>
+                                                    <Button onClick={() => moreOfThisProduct(product._id)}>+</Button>
+                                                </td>
+                                                <td>{formatNumber(cartProducts.filter(id => id === product._id).length * product.price)} ₫</td>
+                                            </tr>
+                                        ))}
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{formatNumber(total)} ₫</td>
+                                        </tr>
+                                        </tbody>
+                                    </Table>
+                                </Table>
+                            ))
                         )}
                     </Box>
                     {!!cartProducts?.length && (
@@ -210,7 +243,7 @@ export default function CartPage() {
                                 name='name'
                                 required
                             />
-                            {nameError && <span style={{ color: 'red' }}>{nameError}</span>}
+                            {nameError && <span style={{color: 'red'}}>{nameError}</span>}
                             <Input
                                 type="tel"
                                 placeholder='Số điện thoại'
@@ -219,7 +252,7 @@ export default function CartPage() {
                                 name='phone'
                                 required
                             />
-                            {phoneError && <span style={{ color: 'red' }}>{phoneError}</span>}
+                            {phoneError && <span style={{color: 'red'}}>{phoneError}</span>}
                             <Input
                                 type="text"
                                 placeholder='Địa chỉ'
@@ -228,7 +261,7 @@ export default function CartPage() {
                                 name='address'
                                 required
                             />
-                            {addressError && <span style={{ color: 'red' }}>{addressError}</span>}
+                            {addressError && <span style={{color: 'red'}}>{addressError}</span>}
                             <Button
                                 black
                                 block
