@@ -10,7 +10,6 @@ import Button from "@/components/Button";
 import CartIcon from "@/components/icons/CartIcon";
 import { useContext } from "react";
 import { CartContext } from "@/components/CartContext";
-import QRCode from 'qrcode.react';
 import ProductBox from "@/components/ProductBox";
 import { StyledProductsGrid } from "@/components/ProductsGrid";
 
@@ -36,7 +35,6 @@ const Price = styled.span`
 
 export default function ProductPage({ product, similarProducts }) {
     const { addProduct } = useContext(CartContext);
-    const productUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/product/${product._id}`;
     function formatNumber(num) {
         return new Intl.NumberFormat('de-DE').format(num);
     }
@@ -51,7 +49,6 @@ export default function ProductPage({ product, similarProducts }) {
                     </WhiteBox>
                     <div>
                         <Title>{product.title}</Title>
-                        <QRCode value={productUrl} />
                         <Price>
                             {Object.entries(product.properties).map(([key, value]) => (
                                 <p key={key}>
@@ -73,7 +70,6 @@ export default function ProductPage({ product, similarProducts }) {
                     </div>
                 </ColWrapper>
 
-                {/* Display similar products */}
                 <div>
                     <h2>Sản phẩm cùng loại</h2>
                     <StyledProductsGrid>
