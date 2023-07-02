@@ -112,6 +112,10 @@ export default function Header() {
         }
     }, [mobileNavActive]);
 
+    const handleOverlayClick = () => {
+        setMobileNavActive(false);
+    };
+
     return (
         <StyledHeader>
             <StyledDiv>
@@ -130,6 +134,7 @@ export default function Header() {
                     </NavButton>
                 </Wrapper>
             </StyledDiv>
+            <Overlay mobileNavActive={mobileNavActive} onClick={handleOverlayClick} />
         </StyledHeader>
     );
 }
