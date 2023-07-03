@@ -25,24 +25,31 @@ const CategoryTitle = styled.div`
   gap: 10px;
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.3rem;
     margin-bottom: 10px;
     margin-top: 10px;
   }
 
   a {
     font-size: 1rem;
-    color: #555;
+    color: #005f41;
     display: inline-block;
+  }
+
+  @media screen and (min-width: 768px) {
+    h2 {
+      font-size: 2rem;
+    }
   }
 `;
 const CategoryWrapper = styled.div`
   margin-bottom: 40px;
+
 `;
 
 const ShowAllSquare = styled(Link)`
   background-color: #ddd;
-  height: 100px;
+  height: 120px;
   border-radius: 10px;
   align-items: center;
   display: flex;
@@ -52,7 +59,7 @@ const ShowAllSquare = styled(Link)`
   font-weight: 500;
   text-decoration: none;
   @media screen and (min-width: 768px) {
-    height: 150px;
+    height: 180px;
   }
 `;
 
@@ -62,15 +69,13 @@ export default function CategoriesPage({mainCategories, categoriesProducts}) {
             <Header/>
             <Center>
                 <Title>
+                    <span>Danh mục sản phẩm</span>
                     {mainCategories.map(cat => (
                         <CategoryWrapper className="" key={cat.id}>
                             <CategoryTitle>
-                                <h2>{cat.name}</h2>
-                                <div>
-                                    <Link href={'/category/' + cat._id}>
-                                        Xem thêm
-                                    </Link>
-                                </div>
+                                <Link href={'/category/' + cat._id}>
+                                    <h2>{cat.name}</h2>
+                                </Link>
                             </CategoryTitle>
                             <CategoryGrid>
                                 {categoriesProducts[cat._id].map(p => (

@@ -54,6 +54,13 @@ export const ButtonStyle = css`
       height: 20px;
     }
   `}
+  ${props => props.size === 'xl' && css`
+    font-size:1.8rem;
+    padding: 10px 20px;
+    svg{
+      height: 30px;
+    }
+  `}
 `;
 
 const StyledButton = styled.button`

@@ -9,19 +9,29 @@ import Title from "@/components/Title";
 import Link from "next/link";
 
 const CategoriesList = styled.div`
-  display: none; 
   height: fit-content;
   flex-direction: column;
   margin-right: 15px;
+  padding: 10px 0;
   position: sticky;
   top: 0;
   a {
     color: #222;
     text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    width: 200px
+  }
+  a:hover{
+    color: #005f41;
+    transition: ease-in-out 0.1s;
   }
   @media screen and (max-width: 768px) {
-    display: flex; 
-    width: 1250px; 
+    a {
+      width: 100px;
+      font-size: .85rem;
+      padding: 0;
+    }
   }
 `;
 

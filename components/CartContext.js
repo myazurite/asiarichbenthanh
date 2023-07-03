@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext({});
 
@@ -7,18 +7,18 @@ export function CartContextProvider({ children }) {
     const [cartProducts, setCartProducts] = useState([]);
 
     useEffect(() => {
+        if (ls && ls.getItem("cart")) {
+            setCartProducts(JSON.parse(ls.getItem("cart")));
+        }
+    }, [ls]); // Include ls as a dependency
+
+    useEffect(() => {
         if (cartProducts?.length > 0) {
             ls?.setItem("cart", JSON.stringify(cartProducts));
         } else {
             ls?.removeItem("cart"); // Remove the cart item from localStorage if cartProducts is empty
         }
-    }, [cartProducts]);
-
-    useEffect(() => {
-        if (ls && ls.getItem("cart")) {
-            setCartProducts(JSON.parse(ls.getItem("cart")));
-        }
-    }, []);
+    }, [cartProducts, ls]); // Include cartProducts and ls as dependencies
 
     function addProduct(productId) {
         setCartProducts((prev) => [...prev, productId]);
@@ -35,8 +35,8 @@ export function CartContextProvider({ children }) {
     }
 
     function clearCart() {
-        setCartProducts([]); // Clear the cart state
-        ls?.removeItem("cart"); // Remove the cart item from localStorage
+        setCartProducts([]);
+        ls?.removeItem("cart");
     }
 
     return (
@@ -47,3 +47,5 @@ export function CartContextProvider({ children }) {
         </CartContext.Provider>
     );
 }
+
+

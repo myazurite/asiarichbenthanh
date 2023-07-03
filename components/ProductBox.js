@@ -32,31 +32,44 @@ const WhiteBox = styled(Link)`
 `;
 
 const Title = styled(Link)`
-  font-weight: normal;
-  font-size:.9rem;
+  font-weight: 500;
+  font-size:1rem;
   color:inherit;
   text-decoration:none;
-  margin:0;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  @media screen and (min-width: 768px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const ProductInfoBox = styled.div`
-  margin-top: auto;
   display: flex;
   flex-direction: column;
+  flex:1;
+  justify-content: space-between;
 `;
 
 const PriceRow = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content:space-between;
-  margin-top:10px;
+  flex: 1;
   margin-bottom: 5px;
+  margin-top:10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 3px;
+  }
 `;
 
 const Price = styled.div`
   font-size: 1rem;
-  font-weight:400;
-  text-align: right;
+  font-weight:600;
+  //text-align: right;
 `;
 
 export default function ProductBox({_id, title, description, price, images, showBuyButton = true}) {

@@ -18,6 +18,10 @@ const Bg = styled.div`
   }
 `;
 
+const FeaturedWrapper = styled.div`
+  border-bottom: 1px solid lightgray;
+`
+
 const PromoBg = styled.div `
   //background: rgba(0, 95, 65, 0.9);
   padding: 50px 0;
@@ -85,35 +89,37 @@ export default function Featured({product}) {
 
     return (
         <>
-            <Bg>
-                <img src={thumbnail.src} alt=""/>
-            </Bg>
-            <PromoBg>
-                <Center>
-                    <ColumnsWrapper>
-                        <Column>
-                            <div>
-                                <Title>Thực phẩm năm sao</Title>
-                                <Desc>Tinh hoa thực phẩm việt chất lượng <br/> Tiện lợi <br/> Không chất bảo quản <br/> Không màu thực phẩm <br/> Không bột ngọt/bột nêm <br/> Bánh mì, bánh bao không bột nổi</Desc>
-                                <ButtonsWrapper>
-                                    <ButtonLink
-                                        href={'/product/' + product._id}
-                                        outline
-                                        primary
-                                        size='l'
-                                    >
-                                        Xem thêm
-                                    </ButtonLink>
-                                    <Button onClick={addFeaturedToCart} primary size='l'><CartIcon/> Mua ngay</Button>
-                                </ButtonsWrapper>
-                            </div>
-                        </Column>
-                        <Column>
-                            <img src={product.images[0]} alt=""/>
-                        </Column>
-                    </ColumnsWrapper>
-                </Center>
-            </PromoBg>
+            <FeaturedWrapper>
+                <Bg>
+                    <img src={thumbnail.src} alt=""/>
+                </Bg>
+                <PromoBg>
+                    <Center>
+                        <ColumnsWrapper>
+                            <Column>
+                                <div>
+                                    <Title>Thực phẩm năm sao</Title>
+                                    <Desc>Tinh hoa thực phẩm việt chất lượng <br/> Tiện lợi <br/> Không chất bảo quản <br/> Không màu thực phẩm <br/> Không bột ngọt/bột nêm <br/> Bánh mì, bánh bao không bột nổi</Desc>
+                                    <ButtonsWrapper>
+                                        <ButtonLink
+                                            href={'/product/' + product._id}
+                                            outline
+                                            primary
+                                            size='l'
+                                        >
+                                            Xem thêm
+                                        </ButtonLink>
+                                        <Button onClick={addFeaturedToCart} primary size='l'><CartIcon/> Mua ngay</Button>
+                                    </ButtonsWrapper>
+                                </div>
+                            </Column>
+                            <Column>
+                                <img src={product.images[0]} alt=""/>
+                            </Column>
+                        </ColumnsWrapper>
+                    </Center>
+                </PromoBg>
+            </FeaturedWrapper>
         </>
     )
 }

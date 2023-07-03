@@ -1,20 +1,23 @@
 import Link from "next/link";
 import styled from "styled-components";
-import {useContext, useEffect, useState} from "react";
-import {CartContext} from "@/components/CartContext";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "@/components/CartContext";
 import BarsIcon from "@/components/icons/Bars";
 import logo from "@/public/assets/Logo.jpg";
 
 const StyledHeader = styled.header`
+  position: sticky;
+  top: 0;
   background-color: #005f41;
+  z-index: 1;
 `;
 
 const Logo = styled(Link)`
-  color:#fff;
-  text-decoration:none;
-  position: relative;
+  color: #fff;
+  text-decoration: none;
+  position: sticky;
   z-index: 1;
-  img{
+  img {
     max-height: 50px;
   }
 `;
@@ -32,7 +35,7 @@ const StyledNav = styled.nav`
   width: 70%;
   padding: 70px 20px 20px;
   background-color: #005f41;
-  transform: translateX(${props => props.mobileNavActive ? '0' : '100%'});
+  transform: translateX(${(props) => (props.mobileNavActive ? "0" : "100%")});
   transition: transform 0.3s ease-in-out;
   z-index: 2;
 
@@ -50,12 +53,12 @@ const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  color:#ddd;
-  text-decoration:none;
+  color: #ddd;
+  text-decoration: none;
   padding: 10px 0;
 
   @media screen and (min-width: 768px) {
-    padding:0;
+    padding: 0;
   }
 `;
 
@@ -64,7 +67,7 @@ const NavButton = styled.button`
   background-color: transparent;
   width: 30px;
   height: 30px;
-  border:0;
+  border: 0;
   color: white;
   cursor: pointer;
   position: relative;
@@ -76,7 +79,7 @@ const NavButton = styled.button`
 `;
 
 const StyledDiv = styled.div`
-  max-width:800px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 0 20px;
 
@@ -93,7 +96,7 @@ const Overlay = styled.div`
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
-  display: ${props => props.mobileNavActive ? 'block' : 'none'};
+  display: ${(props) => (props.mobileNavActive ? "block" : "none")};
 
   @media screen and (min-width: 768px) {
     display: none;
@@ -101,14 +104,14 @@ const Overlay = styled.div`
 `;
 
 export default function Header() {
-    const {cartProducts} = useContext(CartContext);
+    const { cartProducts } = useContext(CartContext);
     const [mobileNavActive, setMobileNavActive] = useState(false);
 
     useEffect(() => {
         if (mobileNavActive) {
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = "hidden";
         } else {
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = "auto";
         }
     }, [mobileNavActive]);
 
@@ -120,21 +123,24 @@ export default function Header() {
         <StyledHeader>
             <StyledDiv>
                 <Wrapper>
-                    <Logo href='/'>
-                        <img src={logo.src} alt=""/>
+                    <Logo href="/">
+                        <img src={logo.src} alt="" />
                     </Logo>
                     <StyledNav mobileNavActive={mobileNavActive}>
-                        <NavLink href='/'>Trang chủ</NavLink>
-                        <NavLink href='/products'>Sản phẩm</NavLink>
-                        <NavLink href='/categories'>Danh mục</NavLink>
-                        <NavLink href='/cart'>Giỏ hàng ({cartProducts.length})</NavLink>
+                        <NavLink href="/">Trang chủ</NavLink>
+                        <NavLink href="/products">Sản phẩm</NavLink>
+                        <NavLink href="/categories">Danh mục</NavLink>
+                        <NavLink href="/cart">Giỏ hàng ({cartProducts.length})</NavLink>
                     </StyledNav>
-                    <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
-                        <BarsIcon/>
+                    <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
+                        <BarsIcon />
                     </NavButton>
                 </Wrapper>
             </StyledDiv>
-            <Overlay mobileNavActive={mobileNavActive} onClick={handleOverlayClick} />
+            <Overlay
+                mobileNavActive={mobileNavActive}
+                onClick={handleOverlayClick}
+            />
         </StyledHeader>
     );
 }

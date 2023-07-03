@@ -10,19 +10,28 @@ const Title = styled.h2`
 `;
 
 const CategoriesList = styled.div`
-  display: none;
+  //display: none;
   height: fit-content;
   flex-direction: column;
   margin-right: 15px;
   position: sticky;
   top: 0;
+  display: flex;
+  font-size: 1rem;
   a {
     color: #222;
     text-decoration: none;
+    width: 200px;
+  }
+  a:hover{
+    color: #005f41;
+    transition: ease-in-out 0.1s;
   }
   @media screen and (max-width: 768px) {
-    display: flex;
-    width: 1250px;
+    a {
+      width: 120px;
+      font-size: .9rem;
+    }
   }
 `;
 const CategoryItem = styled(Link)`
