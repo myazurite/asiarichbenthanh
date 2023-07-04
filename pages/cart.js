@@ -7,7 +7,7 @@ import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
 import {useRouter} from "next/router";
-import {Skeleton} from "@mui/material";
+import {Skeleton} from "@mui/material"
 
 const ColumnsWrapper = styled.div`
   display: grid;
