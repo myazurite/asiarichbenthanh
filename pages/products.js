@@ -14,7 +14,7 @@ const CategoriesList = styled.div`
   margin-right: 15px;
   padding: 10px 0;
   position: sticky;
-  top: 0;
+  top: 55px;
   a {
     color: #222;
     text-decoration: none;
@@ -70,7 +70,7 @@ export async function getServerSideProps() {
     return {
         props:{
             products: JSON.parse(JSON.stringify(products)),
-            categories: JSON.parse(JSON.stringify(categories)), // Pass categories to component
+            categories: JSON.parse(JSON.stringify(categories)),
         }
     };
 }

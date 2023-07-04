@@ -5,7 +5,6 @@ import CartIcon from "@/components/icons/CartIcon";
 import Button from "@/components/Button";
 import {useRouter} from "next/router";
 import axios from "axios";
-import Center from "@/components/Center";
 import Badge from "@mui/material/Badge";
 
 
@@ -16,9 +15,15 @@ const CartSummaryWrapper = styled.div`
   width: 100%;
   background-color: #fff;
   border-top: 1px solid #000;
-  padding: 10px;
+  padding: 5px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  
+  div {
+    align-items: center;
+    display: flex;
+  }
   
   button {
     background-color: transparent;
@@ -33,6 +38,15 @@ const Total = styled.span`
   font-size: 1rem;
   font-weight: 600;
 `;
+
+const GoToCartButton = styled.div`
+
+  gap: 5px;
+  span{
+    font-weight: 600;
+    font-size: 1rem;
+  }
+`
 
 function CartSummary() {
     const {cartProducts} = useContext(CartContext);
@@ -79,12 +93,22 @@ function CartSummary() {
 
     return (
         <CartSummaryWrapper>
-            <Button size={'xl'} onClick={handleRedirectToCart}>
-                <Badge badgeContent={totalItems} color="success">
-                    <CartIcon/>
-                </Badge>
-            </Button>
-            <Total>{formatNumber(calculateTotalPrice())} ₫</Total>
+            <div>
+                <Button size={"xl"} onClick={handleRedirectToCart}>
+                    <Badge badgeContent={totalItems} color="success">
+                        <CartIcon />
+                    </Badge>
+                </Button>
+                <Total>{formatNumber(calculateTotalPrice())} ₫</Total>
+            </div>
+            <GoToCartButton>
+                <Button size={"sm"} onClick={handleRedirectToCart}>
+                    <span>Vào giỏ hàng</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                    </svg>
+                </Button>
+            </GoToCartButton>
         </CartSummaryWrapper>
     );
 }

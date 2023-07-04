@@ -10,12 +10,11 @@ const Title = styled.h2`
 `;
 
 const CategoriesList = styled.div`
-  //display: none;
   height: fit-content;
   flex-direction: column;
   margin-right: 15px;
   position: sticky;
-  top: 0;
+  top: 55px;
   display: flex;
   font-size: 1rem;
   a {
