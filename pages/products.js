@@ -12,15 +12,14 @@ const CategoriesList = styled.div`
   height: fit-content;
   flex-direction: column;
   margin-right: 15px;
-  padding: 10px 0;
   position: sticky;
   top: 55px;
+  display: flex;
+  font-size: 1rem;
   a {
     color: #222;
     text-decoration: none;
-    font-size: 1rem;
-    display: flex;
-    width: 200px
+    width: 200px;
   }
   a:hover{
     color: #005f41;
@@ -28,14 +27,13 @@ const CategoriesList = styled.div`
   }
   @media screen and (max-width: 768px) {
     a {
-      width: 100px;
-      font-size: .85rem;
-      padding: 0;
+      width: 120px;
+      font-size: .9rem;
     }
   }
 `;
 
-const CategoryItem = styled.div`
+const CategoryItem = styled(Link)`
   padding: 10px 0;
   cursor: pointer;
   border-bottom: 1px solid lightgray;
@@ -50,9 +48,12 @@ export default function ProductsPage({products, categories}) {
                 <div style={{ display: 'flex', width: '100%' }}>
                     <CategoriesList>
                         {categories.map(category => (
-                            <Link key={category._id} href={`/category/${category._id}`} passHref>
-                                <CategoryItem>{category.name}</CategoryItem>
-                            </Link>
+                                <CategoryItem
+                                    key={category._id}
+                                    href={`/category/${category._id}`}
+                                >
+                                    {category.name}
+                                </CategoryItem>
                         ))}
                     </CategoriesList>
                     <ProductsGrid products={products} />

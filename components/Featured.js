@@ -6,15 +6,22 @@ import CartIcon from "@/components/icons/CartIcon";
 import ButtonLink from "@/components/ButtonLink";
 import {useContext} from "react";
 import {CartContext} from "@/components/CartContext";
+import Image from "next/image";
 
 const Bg = styled.div`
-  //background: #005f41;
-  //padding: 150px;
   color:#fff;
   width: 100%;
+  height: 350px;
   img{
-    width: 100%;
     object-fit: cover;
+  }
+  div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  @media screen and (max-width: 768px) {
+    height: 130px;
   }
 `;
 
@@ -27,6 +34,10 @@ const PromoBg = styled.div `
   padding: 50px 0;
   color: #fff;
   width: 100%;
+  @media screen and (max-width: 768px) {
+    padding-top: 30px;
+    padding-bottom: 0;
+  }
 
   img {
     width: 100%;
@@ -53,7 +64,7 @@ const ColumnsWrapper = styled.div`
   gap: 40px;
   img{
     max-width: 100%;
-    max-height: 270px;
+    max-height: 350px;
     display: block;
     margin: 0 auto;
     border-radius: 10px;
@@ -71,6 +82,7 @@ const ColumnsWrapper = styled.div`
     }
   }
 `;
+
 const Column = styled.div`
   display: flex;
   align-items: center;
@@ -91,7 +103,9 @@ export default function Featured({product}) {
         <>
             <FeaturedWrapper>
                 <Bg>
-                    <img src={thumbnail.src} alt=""/>
+                    <div>
+                        <Image fill={true} src={thumbnail} alt="Đồ tươi mỗi ngày"/>
+                    </div>
                 </Bg>
                 <PromoBg>
                     <Center>

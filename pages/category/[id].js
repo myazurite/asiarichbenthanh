@@ -1,47 +1,41 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import {useRouter} from "next/router";
+import {useEffect, useState} from "react";
 import styled from "styled-components";
 import Header from "@/components/Header";
 import Center from "@/components/Center";
-import { Category } from "@/models/Category";
-import { Product } from "@/models/Product";
+import {Category} from "@/models/Category";
+import {Product} from "@/models/Product";
 import ProductsGrid from "@/components/ProductsGrid";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
 import Link from "next/link";
 
 const CategoryList = styled.div`
-  display: flex;
   height: fit-content;
   flex-direction: column;
   margin-right: 15px;
-  padding: 10px 0;
   position: sticky;
   top: 55px;
-
+  display: flex;
+  font-size: 1rem;
   a {
     color: #222;
     text-decoration: none;
-    font-size: 1rem;
-    display: flex;
     width: 200px;
   }
-
-  a:hover {
+  a:hover{
     color: #005f41;
     transition: ease-in-out 0.1s;
   }
-
   @media screen and (max-width: 768px) {
     a {
-      width: 100px;
-      font-size: 0.85rem;
-      padding: 0;
+      width: 120px;
+      font-size: .9rem;
     }
   }
 `;
 
-const CategoryItem = styled.div`
+const CategoryItem = styled(Link)`
   padding: 10px 0;
   cursor: pointer;
   border-bottom: 1px solid lightgray;
@@ -100,7 +94,7 @@ export default function CategoryPage({
     const [loadingProducts, setLoadingProducts] = useState(false);
     const [filtersChanged, setFiltersChanged] = useState(false);
     const router = useRouter();
-    const { id } = router.query;
+    const {id} = router.query;
 
     useEffect(() => {
         if (!id) return;
@@ -137,7 +131,7 @@ export default function CategoryPage({
 
     return (
         <>
-            <Header />
+            <Header/>
             <Center>
                 <CategoryHeader>
                     <h1>{category.name}</h1>
@@ -176,18 +170,21 @@ export default function CategoryPage({
                         </Filter>
                     </FiltersWrapper>
                 </CategoryHeader>
-                <div style={{ display: "flex", width: "100%" }}>
+                <div style={{display: "flex", width: "100%"}}>
                     <CategoryList>
                         {categories.map((category) => (
-                            <Link key={category._id} href={`/category/${category._id}`} passHref>
-                                <CategoryItem>{category.name}</CategoryItem>
-                            </Link>
+                            <CategoryItem
+                                key={category._id}
+                                href={`/category/${category._id}`}
+                            >
+                                {category.name}
+                            </CategoryItem>
                         ))}
                     </CategoryList>
-                    {loadingProducts && <Spinner fullWidth />}
+                    {loadingProducts && <Spinner fullWidth/>}
                     {!loadingProducts && (
                         <div>
-                            {products.length > 0 && <ProductsGrid products={products} />}
+                            {products.length > 0 && <ProductsGrid products={products}/>}
                             {products.length === 0 && <div>Sorry, no products found</div>}
                         </div>
                     )}
@@ -200,9 +197,9 @@ export default function CategoryPage({
 export async function getServerSideProps(context) {
     const categoryId = context.query.id;
     const category = await Category.findById(categoryId);
-    const subCategories = await Category.find({ parent: category._id });
+    const subCategories = await Category.find({parent: category._id});
     const categoryIds = [category._id, ...subCategories.map((c) => c._id)];
-    const products = await Product.find({ $or: [{ category: { $in: categoryIds } }] });
+    const products = await Product.find({$or: [{category: {$in: categoryIds}}]});
     const categories = await Category.find();
 
     return {

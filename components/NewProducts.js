@@ -33,6 +33,7 @@ const CategoriesList = styled.div`
     }
   }
 `;
+
 const CategoryItem = styled(Link)`
   padding: 10px 0;
   cursor: pointer;

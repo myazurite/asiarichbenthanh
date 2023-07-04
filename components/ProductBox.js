@@ -4,6 +4,7 @@ import CartIcon from "@/components/icons/CartIcon";
 import Link from "next/link";
 import { useContext } from "react";
 import { CartContext } from "@/components/CartContext";
+import Image from "next/image"
 
 const ProductWrapper = styled.div`
   display: flex;
@@ -13,21 +14,21 @@ const ProductWrapper = styled.div`
 `;
 
 const WhiteBox = styled(Link)`
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  height: 120px;
-  overflow: hidden;
-  @media screen and (min-width: 768px) {
-    height: 180px;
-  }
   img{
     object-fit: cover;
-    max-width: 100%;
-    height: 100%;
     border-radius: 10px;
+  }
+  div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    height: 150px;
+    width: 100%;
+    overflow: hidden;
+    @media screen and (min-width: 768px) {
+      height: 180px;
+    }
   }
 `;
 
@@ -84,7 +85,7 @@ export default function ProductBox({_id, title, description, price, images, show
         <ProductWrapper>
             <WhiteBox href={url}>
                 <div>
-                    <img src={images?.[0]} alt="" />
+                    <Image src={images?.[0]} alt="Image" fill={true} />
                 </div>
             </WhiteBox>
             <ProductInfoBox>
