@@ -11,6 +11,7 @@ const ProductWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  border-radius: 10px;
 `;
 
 const WhiteBox = styled(Link)`

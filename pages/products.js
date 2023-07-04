@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import styled from "styled-components";
 import Center from "@/components/Center";
 import {mongooseConnect} from "@/lib/mongoose";
@@ -42,7 +41,6 @@ const CategoryItem = styled(Link)`
 export default function ProductsPage({products, categories}) {
     return (
         <>
-            <Header />
             <Center>
                 <Title>Sản phẩm</Title>
                 <div style={{ display: 'flex', width: '100%' }}>

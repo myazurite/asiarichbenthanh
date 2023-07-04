@@ -1,7 +1,6 @@
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import styled from "styled-components";
-import Header from "@/components/Header";
 import Center from "@/components/Center";
 import {Category} from "@/models/Category";
 import {Product} from "@/models/Product";
@@ -131,7 +130,6 @@ export default function CategoryPage({
 
     return (
         <>
-            <Header/>
             <Center>
                 <CategoryHeader>
                     <h1>{category.name}</h1>

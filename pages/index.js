@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from "@/components/Header";
 import Featured from "@/components/Featured";
 import NewProducts from "@/components/NewProducts";
 import {mongooseConnect} from "@/lib/mongoose";
@@ -9,7 +8,6 @@ import {Category} from "@/models/Category"; // import Category model
 export default function HomePage({newProducts, product, categories}) {
     return (
         <div>
-            <Header/>
             <Featured product={product}/>
             <NewProducts products={newProducts} categories={categories} />
         </div>

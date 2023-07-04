@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/CartContext";
 import BarsIcon from "@/components/icons/Bars";
 import logo from "@/public/assets/Logo.jpg";
+import SearchIcon from "@/components/SearchIcon";
 
 const StyledHeader = styled.header`
   position: sticky;
@@ -56,7 +57,7 @@ const NavLink = styled(Link)`
   color: #ddd;
   text-decoration: none;
   padding: 10px 0;
-
+  
   @media screen and (min-width: 768px) {
     padding: 0;
   }
@@ -103,6 +104,22 @@ const Overlay = styled.div`
   }
 `;
 
+const SideIcons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  a {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+`
+
 export default function Header() {
     const { cartProducts } = useContext(CartContext);
     const [mobileNavActive, setMobileNavActive] = useState(false);
@@ -130,11 +147,15 @@ export default function Header() {
                         <NavLink href="/">Trang chủ</NavLink>
                         <NavLink href="/products">Sản phẩm</NavLink>
                         <NavLink href="/categories">Danh mục</NavLink>
+                        {/*<NavLink href="/account">Tài khoản</NavLink>*/}
                         <NavLink href="/cart">Giỏ hàng ({cartProducts.length})</NavLink>
                     </StyledNav>
-                    <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
-                        <BarsIcon />
-                    </NavButton>
+                    <SideIcons>
+                        <Link href='/search'><SearchIcon/></Link>
+                        <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
+                            <BarsIcon />
+                        </NavButton>
+                    </SideIcons>
                 </Wrapper>
             </StyledDiv>
             <Overlay

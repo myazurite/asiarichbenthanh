@@ -7,19 +7,23 @@ import ButtonLink from "@/components/ButtonLink";
 import {useContext} from "react";
 import {CartContext} from "@/components/CartContext";
 import Image from "next/image";
+import {RevealWrapper} from "next-reveal";
 
 const Bg = styled.div`
-  color:#fff;
+  color: #fff;
   width: 100%;
   height: 350px;
-  img{
+
+  img {
     object-fit: cover;
   }
+
   div {
     position: relative;
     width: 100%;
     height: 100%;
   }
+
   @media screen and (max-width: 768px) {
     height: 130px;
   }
@@ -29,8 +33,7 @@ const FeaturedWrapper = styled.div`
   border-bottom: 1px solid lightgray;
 `
 
-const PromoBg = styled.div `
-  //background: rgba(0, 95, 65, 0.9);
+const PromoBg = styled.div`
   padding: 50px 0;
   color: #fff;
   width: 100%;
@@ -46,38 +49,42 @@ const PromoBg = styled.div `
 `
 const Title = styled.h1`
   color: #000;
-  margin:0;
-  font-weight:normal;
-  font-size:1.5rem;
+  margin: 0;
+  font-weight: normal;
+  font-size: 1.5rem;
   @media screen and (min-width: 768px) {
-    font-size:3rem;
+    font-size: 3rem;
   }
 `;
 const Desc = styled.p`
-  color:#000;
-  font-size:.95rem;
+  color: #000;
+  font-size: .95rem;
   line-height: 1.5;
 `;
 const ColumnsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
-  img{
+
+  img {
     max-width: 100%;
     max-height: 350px;
     display: block;
     margin: 0 auto;
     border-radius: 10px;
   }
+
   div:nth-child(1) {
     order: 2;
   }
+
   @media screen and (min-width: 768px) {
     grid-template-columns: 1.1fr 0.9fr;
     div:nth-child(1) {
       order: 0;
     }
-    img{
+
+    img {
       max-width: 100%;
     }
   }
@@ -89,12 +96,13 @@ const Column = styled.div`
 `;
 const ButtonsWrapper = styled.div`
   display: flex;
-  gap:10px;
-  margin-top:25px;
+  gap: 10px;
+  margin-top: 25px;
 `;
 
 export default function Featured({product}) {
     const {setCartProducts} = useContext(CartContext)
+
     function addFeaturedToCart() {
         setCartProducts(prev => [...prev, product._id]);
     }
@@ -112,24 +120,32 @@ export default function Featured({product}) {
                         <ColumnsWrapper>
                             <Column>
                                 <div>
-                                    <Title>Thực phẩm năm sao</Title>
-                                    <Desc>Tinh hoa thực phẩm việt chất lượng <br/> Tiện lợi <br/> Không chất bảo quản <br/> Không màu thực phẩm <br/> Không bột ngọt/bột nêm <br/> Bánh mì, bánh bao không bột nổi</Desc>
-                                    <ButtonsWrapper>
-                                        <ButtonLink
-                                            href={'/product/' + product._id}
-                                            outline
-                                            primary
-                                            size='l'
-                                        >
-                                            Xem thêm
-                                        </ButtonLink>
-                                        <Button onClick={addFeaturedToCart} primary size='l'><CartIcon/> Mua ngay</Button>
-                                    </ButtonsWrapper>
+                                    <RevealWrapper origin={'left'}>
+                                        <Title>Thực phẩm năm sao</Title>
+                                        <Desc>Tinh hoa thực phẩm việt chất lượng <br/> Tiện lợi <br/> Không chất bảo
+                                            quản <br/> Không màu thực phẩm <br/> Không bột ngọt/bột nêm <br/> Bánh mì, bánh
+                                            bao không bột nổi</Desc>
+                                        <ButtonsWrapper>
+                                            <ButtonLink
+                                                href={'/product/' + product._id}
+                                                outline
+                                                primary
+                                                size='l'
+                                            >
+                                                Xem thêm
+                                            </ButtonLink>
+                                            <Button onClick={addFeaturedToCart} primary size='l'><CartIcon/> Mua
+                                                ngay</Button>
+                                        </ButtonsWrapper>
+                                    </RevealWrapper>
                                 </div>
                             </Column>
-                            <Column>
-                                <img src={product.images[0]} alt=""/>
-                            </Column>
+                            <RevealWrapper>
+                                <Column>
+
+                                    <img src={product.images[0]} alt=""/>
+                                </Column>
+                            </RevealWrapper>
                         </ColumnsWrapper>
                     </Center>
                 </PromoBg>

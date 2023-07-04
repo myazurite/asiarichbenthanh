@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from "@/components/Header";
 import Title from "@/components/Title";
 import Center from "@/components/Center";
 import {Category} from "@/models/Category";
@@ -7,6 +6,7 @@ import {Product} from "@/models/Product";
 import ProductBox from "@/components/ProductBox";
 import styled from "styled-components";
 import Link from "next/link";
+import {RevealWrapper} from "next-reveal";
 
 const CategoryGrid = styled.div`
   display: grid;
@@ -19,8 +19,7 @@ const CategoryGrid = styled.div`
 
 const CategoryTitle = styled.div`
   display: flex;
-  margin-top: 10px;
-  margin-bottom: 0;
+  margin: 10px 0;
   align-items: center;
   gap: 10px;
 
@@ -34,9 +33,11 @@ const CategoryTitle = styled.div`
     font-size: 1rem;
     color: #005f41;
     display: inline-block;
+    text-decoration: none;
   }
 
   @media screen and (min-width: 768px) {
+    margin: 20px 0;
     h2 {
       font-size: 2rem;
     }
@@ -66,7 +67,6 @@ const ShowAllSquare = styled(Link)`
 export default function CategoriesPage({mainCategories, categoriesProducts}) {
     return (
         <>
-            <Header/>
             <Center>
                 <Title>
                     <span>Danh mục sản phẩm</span>
@@ -74,18 +74,22 @@ export default function CategoriesPage({mainCategories, categoriesProducts}) {
                         <CategoryWrapper className="" key={cat.id}>
                             <CategoryTitle>
                                 <Link href={'/category/' + cat._id}>
-                                    <h2>{cat.name}</h2>
+                                    <h2>{cat.name} &rarr;</h2>
                                 </Link>
                             </CategoryTitle>
                             <CategoryGrid>
-                                {categoriesProducts[cat._id].map(p => (
+                                {categoriesProducts[cat._id].map((p, i) => (
                                     <div key={p._id}>
-                                        <ProductBox {...p}/>
+                                        <RevealWrapper delay={i*50}>
+                                            <ProductBox {...p}/>
+                                        </RevealWrapper>
                                     </div>
                                 ))}
-                                <ShowAllSquare href={'/category/' + cat._id}>
-                                    Xem thêm &rarr;
-                                </ShowAllSquare>
+                                <RevealWrapper delay={categoriesProducts[cat._id].length*50}>
+                                    <ShowAllSquare href={'/category/' + cat._id}>
+                                        Xem thêm &rarr;
+                                    </ShowAllSquare>
+                                </RevealWrapper>
                             </CategoryGrid>
                         </CategoryWrapper>
                     ))}

@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from "@/components/Button";
@@ -162,7 +161,6 @@ export default function CartPage() {
     if (router.isReady && router.asPath.includes('success')) {
         return (
             <>
-                <Header/>
                 <Center>
                     <ColumnsWrapper>
                         <Box>
@@ -177,7 +175,6 @@ export default function CartPage() {
 
     return (
         <>
-            <Header/>
             <Center>
                 <ColumnsWrapper>
                     <Box>
