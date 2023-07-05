@@ -181,9 +181,8 @@ export default function CategoryPage({
                     </CategoryList>
                     {loadingProducts && <Spinner fullWidth/>}
                     {!loadingProducts && (
-                        <div>
+                        <div style={{flex: 1}}>
                             {products.length > 0 && <ProductsGrid products={products}/>}
-                            {products.length === 0 && <div>Sorry, no products found</div>}
                         </div>
                     )}
                 </div>
