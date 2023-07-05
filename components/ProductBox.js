@@ -44,6 +44,7 @@ const ProductWrapper = styled.div`
 
 
 const WhiteBox = styled(Link)`
+  position: relative;
   img{
     object-fit: cover;
     border-radius: 10px;
@@ -57,19 +58,26 @@ const WhiteBox = styled(Link)`
     width: 100%;
     overflow: hidden;
     @media screen and (min-width: 768px) {
-      height: 180px;
+      height: 220px;
     }
   }
 `;
 
-const Title = styled(Link)`
-  font-weight: 500;
-  font-size:1rem;
-  color:inherit;
+const Title = styled.span`
+  position: absolute;
+  bottom: 0;
+  font-weight: 600;
+  text-align: center;
+  font-size:.9rem;
+  color:#fff;
   text-decoration:none;
   display: flex;
-  flex: 1;
-  align-items: center;
+  align-items: end;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  padding-bottom: 10px;
+  background: linear-gradient(to top, rgba(34, 34, 34, 0.9), rgba(34, 34, 34, 0));
   @media screen and (min-width: 768px) {
     font-size: 1.1rem;
   }
@@ -87,12 +95,10 @@ const PriceRow = styled.div`
   margin-bottom: 5px;
   margin-top:10px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   @media screen and (min-width: 768px) {
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
     padding-bottom: 3px;
   }
 `;
@@ -100,7 +106,6 @@ const PriceRow = styled.div`
 const Price = styled.div`
   font-size: 1rem;
   font-weight:600;
-  //text-align: right;
 `;
 
 export default function ProductBox({_id, title, description, price, images, showBuyButton = true}) {
@@ -116,25 +121,24 @@ export default function ProductBox({_id, title, description, price, images, show
             <WhiteBox href={url}>
                 <div>
                     <Image src={images?.[0]} alt="Image" fill={true} />
+                    <Title>{title}</Title>
                 </div>
             </WhiteBox>
             <ProductInfoBox>
                 <PriceRow>
-                    <Title href={url}>{title}</Title>
                     <Price>
                         {formatNumber(price)} ₫
                     </Price>
+                    {showBuyButton &&
+                        <Button
+                            primary
+                            outline
+                            onClick={() => addProduct(_id)}
+                        >
+                            <CartIcon/> Mua
+                        </Button>
+                    }
                 </PriceRow>
-                {showBuyButton &&
-                    <Button
-                        block
-                        primary
-                        outline
-                        onClick={() => addProduct(_id)}
-                    >
-                        <CartIcon/> Mua
-                    </Button>
-                }
             </ProductInfoBox>
         </ProductWrapper>
     );

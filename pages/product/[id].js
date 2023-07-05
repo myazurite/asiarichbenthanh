@@ -79,7 +79,7 @@ export default function ProductPage({ product, similarProducts }) {
                                 title={similarProduct.title}
                                 price={similarProduct.price}
                                 images={similarProduct.images}
-                                showBuyButton={false}
+                                showBuyButton={true}
                             />
                         ))}
                     </StyledProductsGrid>
