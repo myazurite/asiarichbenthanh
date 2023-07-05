@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
-import { CartContext } from "@/components/CartContext";
+import {useContext, useEffect, useState} from "react";
+import {CartContext} from "@/components/CartContext";
 import BarsIcon from "@/components/icons/Bars";
 import logo from "@/public/assets/Logo.jpg";
 import SearchIcon from "@/components/SearchIcon";
@@ -18,6 +18,7 @@ const Logo = styled(Link)`
   text-decoration: none;
   position: sticky;
   z-index: 1;
+
   img {
     max-height: 50px;
   }
@@ -43,25 +44,33 @@ const StyledNav = styled.nav`
   @media screen and (min-width: 768px) {
     position: static;
     transform: none;
-    width: 40%;
+    width: 50%;
     padding: 0;
     display: flex;
     justify-content: space-between;
   }
 `;
 
-const NavLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ddd;
-  text-decoration: none;
-  padding: 10px 0;
-  
-  @media screen and (min-width: 768px) {
-    padding: 0;
-  }
-`;
+const NavLink = ({href, children, onClick}) => (
+    <Link
+        href={href}
+        passHref
+        onClick={onClick}
+        style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ddd',
+            textDecoration: 'none',
+            padding: '10px 0',
+            '@media screen and (min-width: 768px)': {
+                padding: 0
+            }
+        }}
+    >
+        {children}
+    </Link>
+);
 
 const NavButton = styled.button`
   margin: auto 0;
@@ -108,11 +117,13 @@ const SideIcons = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+
   a {
     display: inline-block;
     width: 20px;
     height: 20px;
     color: #fff;
+
     svg {
       width: 18px;
       height: 18px;
@@ -121,7 +132,7 @@ const SideIcons = styled.div`
 `
 
 export default function Header() {
-    const { cartProducts } = useContext(CartContext);
+    const {cartProducts} = useContext(CartContext);
     const [mobileNavActive, setMobileNavActive] = useState(false);
 
     useEffect(() => {
@@ -141,19 +152,20 @@ export default function Header() {
             <StyledDiv>
                 <Wrapper>
                     <Logo href="/">
-                        <img src={logo.src} alt="" />
+                        <img src={logo.src} alt=""/>
                     </Logo>
                     <StyledNav mobileNavActive={mobileNavActive}>
-                        <NavLink href="/">Trang chủ</NavLink>
-                        <NavLink href="/products">Sản phẩm</NavLink>
-                        <NavLink href="/categories">Danh mục</NavLink>
-                        {/*<NavLink href="/account">Tài khoản</NavLink>*/}
-                        <NavLink href="/cart">Giỏ hàng ({cartProducts.length})</NavLink>
+                        <NavLink onClick={() => setMobileNavActive(false)} href="/">Trang chủ</NavLink>
+                        <NavLink onClick={() => setMobileNavActive(false)} href="/products">Sản phẩm</NavLink>
+                        <NavLink onClick={() => setMobileNavActive(false)} href="/categories">Danh mục</NavLink>
+                        {/*<NavLink onClick={() => setMobileNavActive(false)} href="/account">Tài khoản</NavLink>*/}
+                        <NavLink onClick={() => setMobileNavActive(false)} href="/cart">Giỏ hàng
+                            ({cartProducts.length})</NavLink>
                     </StyledNav>
                     <SideIcons>
                         <Link href='/search'><SearchIcon/></Link>
                         <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
-                            <BarsIcon />
+                            <BarsIcon/>
                         </NavButton>
                     </SideIcons>
                 </Wrapper>

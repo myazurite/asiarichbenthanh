@@ -4,6 +4,7 @@ import FooterComponent from "@/components/Footer";
 import CartSummary from "@/components/CartSummary";
 import {SessionProvider} from "next-auth/react";
 import Header from "@/components/Header";
+import ScrollToTop from "@/components/scrollButton";
 
 const GlobalStyles = createGlobalStyle`
   @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
@@ -24,6 +25,7 @@ export default function App({ Component, pageProps: {session, ...pageProps} }) {
                 <Component {...pageProps} />
                 <CartSummary/>
                 <FooterComponent/>
+                <ScrollToTop/>
             </CartContextProvider>
         </SessionProvider>
     </>
