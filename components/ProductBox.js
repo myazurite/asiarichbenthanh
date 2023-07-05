@@ -6,13 +6,42 @@ import { useContext } from "react";
 import { CartContext } from "@/components/CartContext";
 import Image from "next/image"
 
+
 const ProductWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  width: 100%;
   border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.4);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  &::before {
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+
+  &::after {
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
 `;
+
 
 const WhiteBox = styled(Link)`
   img{
