@@ -6,7 +6,7 @@ import Link from 'next/link';
 const Title = styled.h2`
   font-size: 1.5rem;
   margin:30px 0 20px;
-  font-weight: normal;
+  font-weight: bold;
 `;
 
 const CategoriesList = styled.div`
@@ -43,7 +43,7 @@ const CategoryItem = styled(Link)`
 export default function NewProducts({products, categories}) {
     return (
         <Center>
-            <Title>Sản phẩm mới</Title>
+            <Title>SẢN PHẨM MỚI</Title>
             <div style={{ display: 'flex' }}>
                 <CategoriesList>
                     {categories.map(category => (

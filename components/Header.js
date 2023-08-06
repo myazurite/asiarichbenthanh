@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {useContext, useEffect, useState} from "react";
 import {CartContext} from "@/components/CartContext";
 import BarsIcon from "@/components/icons/Bars";
-import logo from "@/public/assets/Logo.jpg";
+import logo from "@/public/assets/Logo-alt.jpg";
 import SearchIcon from "@/components/SearchIcon";
 
 const StyledHeader = styled.header`

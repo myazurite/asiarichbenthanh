@@ -1,5 +1,5 @@
 import styled, {css} from "styled-components";
-import {primary} from "@/lib/colors";
+import {buyBtn, primary} from "@/lib/colors";
 
 export const ButtonStyle = css`
   border:0;
@@ -9,7 +9,7 @@ export const ButtonStyle = css`
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Mulish', sans-serif;
   font-weight:500;
   svg{
     height: 16px;
@@ -41,6 +41,11 @@ export const ButtonStyle = css`
     background-color: ${primary};
     border: 1px solid ${primary};
     color:#fff;
+  `}
+  ${props => props.buyBtn && !props.outline && css`
+    background-color: ${buyBtn};
+    border: 1px solid #DAA520;
+    color:#000;
   `}
   ${props => props.primary && props.outline && css`
     background-color: transparent;

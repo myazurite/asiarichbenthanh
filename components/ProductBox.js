@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Button from "@/components/Button";
 import CartIcon from "@/components/icons/CartIcon";
 import Link from "next/link";
-import { useContext } from "react";
-import { CartContext } from "@/components/CartContext";
+import {useContext, useState} from "react";
+import {CartContext} from "@/components/CartContext";
 import Image from "next/image"
 
 
@@ -45,10 +45,12 @@ const ProductWrapper = styled.div`
 
 const WhiteBox = styled(Link)`
   position: relative;
-  img{
+
+  img {
     object-fit: cover;
     border-radius: 10px;
   }
+
   div {
     position: relative;
     display: flex;
@@ -68,9 +70,9 @@ const Title = styled.span`
   bottom: 0;
   font-weight: 600;
   text-align: center;
-  font-size:.9rem;
-  color:#fff;
-  text-decoration:none;
+  font-size: .9rem;
+  color: #fff;
+  text-decoration: none;
   display: flex;
   align-items: end;
   justify-content: center;
@@ -86,14 +88,14 @@ const Title = styled.span`
 const ProductInfoBox = styled.div`
   display: flex;
   flex-direction: column;
-  flex:1;
+  flex: 1;
   justify-content: space-between;
 `;
 
 const PriceRow = styled.div`
   flex: 1;
   margin-bottom: 5px;
-  margin-top:10px;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -105,12 +107,45 @@ const PriceRow = styled.div`
 
 const Price = styled.div`
   font-size: 1rem;
-  font-weight:600;
+  font-weight: 600;
+`;
+
+const FlashEffect = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+  animation: flash 0.5s linear;
+
+  @keyframes flash {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+`;
+
+const FlashEffectContainer = styled.div`
+  position: relative;
 `;
 
 export default function ProductBox({_id, title, description, price, images, showBuyButton = true}) {
-    const { addProduct } = useContext(CartContext);
+    const {addProduct} = useContext(CartContext);
     const url = '/product/' + _id;
+    const [showFlash, setShowFlash] = useState(false);
+
+    function handleBuyClick() {
+        addProduct(_id);
+        setShowFlash(true);
+        setTimeout(() => {
+            setShowFlash(false);
+        }, 500);
+    }
 
     function formatNumber(num) {
         return new Intl.NumberFormat('de-DE').format(num);
@@ -129,15 +164,18 @@ export default function ProductBox({_id, title, description, price, images, show
                     <Price>
                         {formatNumber(price)} ₫
                     </Price>
-                    {showBuyButton &&
-                        <Button
-                            primary
-                            outline
-                            onClick={() => addProduct(_id)}
-                        >
-                            <CartIcon/> Mua
-                        </Button>
-                    }
+                    {/* Wrap the Button with a FlashEffectContainer */}
+                    <FlashEffectContainer>
+                        {showBuyButton &&
+                            <Button
+                                buyBtn
+                                onClick={handleBuyClick}
+                            >
+                                <CartIcon/> Mua
+                            </Button>
+                        }
+                        {showFlash && <FlashEffect />} {/* Render the flash effect only when showFlash is true */}
+                    </FlashEffectContainer>
                 </PriceRow>
             </ProductInfoBox>
         </ProductWrapper>

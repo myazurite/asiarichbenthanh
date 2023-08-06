@@ -31,7 +31,7 @@ const CategoryTitle = styled.div`
 
   a {
     font-size: 1rem;
-    color: #005f41;
+    color: #696969;
     display: inline-block;
     text-decoration: none;
   }

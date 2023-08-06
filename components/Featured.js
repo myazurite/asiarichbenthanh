@@ -8,6 +8,12 @@ import {useContext} from "react";
 import {CartContext} from "@/components/CartContext";
 import Image from "next/image";
 import {RevealWrapper} from "next-reveal";
+import {Great_Vibes} from "next/font/google";
+
+const gv = Great_Vibes({
+    weight: '400',
+    subsets: ['latin'],
+})
 
 const Bg = styled.div`
   color: #fff;
@@ -48,12 +54,13 @@ const PromoBg = styled.div`
   }
 `
 const Title = styled.h1`
+  font-family: ${gv.style.fontFamily};
   color: #000;
   margin: 0;
   font-weight: normal;
   font-size: 1.5rem;
   @media screen and (min-width: 768px) {
-    font-size: 3rem;
+    font-size: 4rem;
   }
 `;
 const Desc = styled.p`
@@ -122,7 +129,7 @@ export default function Featured({product}) {
                                 <div>
                                     <RevealWrapper origin={'left'}>
                                         <Title>Thực phẩm năm sao</Title>
-                                        <Desc>Tinh hoa thực phẩm việt chất lượng <br/> Tiện lợi <br/> Không chất bảo
+                                        <Desc>Tinh hoa thực phẩm việt chất lượng <br/> Tiện lợi, bữa ăn sẵn sàng trong 15 phút <br/> Không chất bảo
                                             quản <br/> Không màu thực phẩm <br/> Không bột ngọt/bột nêm <br/> Bánh mì, bánh
                                             bao không bột nổi</Desc>
                                         <ButtonsWrapper>
@@ -134,7 +141,7 @@ export default function Featured({product}) {
                                             >
                                                 Xem thêm
                                             </ButtonLink>
-                                            <Button onClick={addFeaturedToCart} primary size='l'><CartIcon/> Mua
+                                            <Button onClick={addFeaturedToCart} buyBtn size='l'><CartIcon/> Mua
                                                 ngay</Button>
                                         </ButtonsWrapper>
                                     </RevealWrapper>

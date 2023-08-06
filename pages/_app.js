@@ -5,14 +5,19 @@ import CartSummary from "@/components/CartSummary";
 import {SessionProvider} from "next-auth/react";
 import Header from "@/components/Header";
 import ScrollToTop from "@/components/scrollButton";
+import {Mulish} from "next/font/google";
+
+const mulish = Mulish({
+    weight: ['400', '500', '600', '700'],
+    subsets: ['latin'],
+})
 
 const GlobalStyles = createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
   body{
     background-color: #eee;
     padding:0;
     margin:0;
-    font-family: 'Quicksand', sans-serif;
+    font-family: ${mulish.style.fontFamily};
   }
 `;
 export default function App({ Component, pageProps: {session, ...pageProps} }) {

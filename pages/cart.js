@@ -27,7 +27,15 @@ const Box = styled.div`
 
 const ProductInfoCell = styled.td`
   padding: 10px 0;
+  span {
+    color: #696969;
+  }
 `;
+
+const OrderBtn = styled(Button)`
+  background: #F0E68C;
+  color: #0D3D29;
+`
 
 const ProductImageBox = styled.div`
   display: flex;
@@ -178,7 +186,7 @@ export default function CartPage() {
             <Center>
                 <ColumnsWrapper>
                     <Box>
-                        <h2>Giỏ hàng</h2>
+                        <h2>GIỎ HÀNG</h2>
                         {loading ? (
                             <>
                                 <SkeletonRow variant="text"/>
@@ -207,7 +215,7 @@ export default function CartPage() {
                                                     <ProductImageBox>
                                                         <img src={product.images[0]} alt=""/>
                                                     </ProductImageBox>
-                                                    {product.title}
+                                                    <span>{product.title}</span>
                                                 </ProductInfoCell>
                                                 <td>
                                                     <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
@@ -232,7 +240,7 @@ export default function CartPage() {
                     </Box>
                     {!!cartProducts?.length && (
                         <Box>
-                            <h2>Thông tin đặt hàng</h2>
+                            <h2>THÔNG TIN ĐẶT HÀNG</h2>
                             <Input
                                 type="text"
                                 placeholder='Tên'
@@ -260,13 +268,12 @@ export default function CartPage() {
                                 required
                             />
                             {addressError && <span style={{color: 'red'}}>{addressError}</span>}
-                            <Button
-                                black
+                            <OrderBtn
                                 block
                                 onClick={goToPayment}
                             >
                                 Đặt hàng
-                            </Button>
+                            </OrderBtn>
                         </Box>
                     )}
                 </ColumnsWrapper>
