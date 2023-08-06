@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import logo from "@/public/assets/Logo_alt.jpg";
+import logo from "@/public/assets/Logo.jpg";
 import {FiMapPin} from "react-icons/fi";
 import {AiOutlinePhone} from "react-icons/ai";
 import {FaShippingFast} from "react-icons/fa";
