@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import {CartContext} from "@/components/CartContext";
 import BarsIcon from "@/components/icons/Bars";
 import logo from "@/public/assets/Logo.jpg";
-import SearchIcon from "@/components/SearchIcon";
+import SearchIcon from "@/components/SearchIcon"
 
 const StyledHeader = styled.header`
   position: sticky;
