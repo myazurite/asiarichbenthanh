@@ -36,7 +36,7 @@ const StyledNav = styled.nav`
   bottom: 0;
   width: 70%;
   padding: 70px 20px 20px;
-  background-color: #005f41;
+  background-color: #005100;
   transform: translateX(${(props) => (props.mobileNavActive ? "0" : "100%")});
   transition: transform 0.3s ease-in-out;
   z-index: 2;
