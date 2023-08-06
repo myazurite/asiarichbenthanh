@@ -9,7 +9,7 @@ import SearchIcon from "@/components/SearchIcon";
 const StyledHeader = styled.header`
   position: sticky;
   top: 0;
-  background-color: #005f41;
+  background-color: #005100;
   z-index: 1;
 `;
 
