@@ -65,6 +65,8 @@ const ShowAllSquare = styled(Link)`
 `;
 
 export default function CategoriesPage({mainCategories, categoriesProducts}) {
+    mainCategories.sort((a, b) => a.order - b.order);
+
     return (
         <>
             <Center>
@@ -101,30 +103,28 @@ export default function CategoriesPage({mainCategories, categoriesProducts}) {
 }
 
 export async function getServerSideProps() {
-    const categories = await Category.find();
-    const mainCategories = categories.filter(c => !c.parent);
+    const categories = await Category.find().sort({ order: 1 }); // Sort by the "order" field in ascending order
+    const mainCategories = categories.filter((c) => !c.parent);
     const categoriesProducts = {};
 
     for (const mainCat of mainCategories) {
         const mainCatId = mainCat._id.toString();
         const childCatId = categories
-            .filter(c => c?.parent?.toString() === mainCatId)
-            .map(c => c._id.toString());
+            .filter((c) => c?.parent?.toString() === mainCatId)
+            .map((c) => c._id.toString());
         const categoriesIds = [mainCatId, ...childCatId];
-        const products = await Product.find(
+        categoriesProducts[mainCat._id] = await Product.find(
             {category: categoriesIds},
-            null, {limit: 4, sort: {'_id': -1}}
+            null,
+            {limit: 4, sort: {_id: -1}}
         );
-        categoriesProducts[mainCat._id] = products;
     }
 
     return {
         props: {
-            mainCategories: JSON.parse(
-                JSON.stringify(mainCategories)
-            ),
-            categoriesProducts: JSON.parse(JSON.stringify(categoriesProducts))
+            mainCategories: JSON.parse(JSON.stringify(mainCategories)),
+            categoriesProducts: JSON.parse(JSON.stringify(categoriesProducts)),
         },
-    }
+    };
 }
 
