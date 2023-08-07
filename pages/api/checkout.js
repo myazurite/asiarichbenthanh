@@ -33,7 +33,7 @@ export default async function handler(req, res) {
                     unit_amount: productInfo.price,
                 },
             });
-            total_price += productInfo.price * quantity;
+            total_price += productInfo.discount > 0 ? productInfo.discountedPrice * quantity : productInfo.price * quantity;
         }
     }
     const orderDoc = await Order.create({

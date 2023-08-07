@@ -9,9 +9,16 @@ import {CartContext} from "@/components/CartContext";
 import Image from "next/image";
 import {RevealWrapper} from "next-reveal";
 import {Great_Vibes} from "next/font/google";
+import {Montserrat_Alternates} from "next/font/google";
+import Star from "@/components/icons/Star";
 
 const gv = Great_Vibes({
     weight: '400',
+    subsets: ['latin'],
+});
+
+const montAlt = Montserrat_Alternates({
+    weight: ['300', '400', '500', '600', '700'],
     subsets: ['latin'],
 })
 
@@ -54,13 +61,23 @@ const PromoBg = styled.div`
   }
 `
 const Title = styled.h1`
-  font-family: ${gv.style.fontFamily};
+  font-family: ${montAlt.style.fontFamily};
   color: #000;
   margin: 0;
   font-weight: normal;
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 45px;
+    height: 45px;
+    fill: #FFD700;
+    margin-top: 7px;
+  }
+
   @media screen and (min-width: 768px) {
-    font-size: 4rem;
+    font-size: 3rem;
   }
 `;
 const Desc = styled.p`
@@ -83,11 +100,13 @@ const ColumnsWrapper = styled.div`
 
   div:nth-child(1) {
     order: 2;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @media screen and (min-width: 768px) {
     grid-template-columns: 1.1fr 0.9fr;
-    div:nth-child(1) {
+    & > div:nth-child(1) {
       order: 0;
     }
 
@@ -101,11 +120,29 @@ const Column = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const ButtonsWrapper = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 25px;
 `;
+
+const CenterImg = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`
+
+const ImgColumn = styled(Column)`
+  & > div {
+    width: 100%;
+  }
+`
+
+const ContentWrapper = styled.div`
+  
+`
 
 export default function Featured({product}) {
     const {setCartProducts} = useContext(CartContext)
@@ -127,31 +164,36 @@ export default function Featured({product}) {
                         <ColumnsWrapper>
                             <Column>
                                 <div>
-                                    <RevealWrapper origin={'left'}>
-                                        <Title>Thực phẩm năm sao</Title>
-                                        <Desc>Tinh hoa thực phẩm việt chất lượng <br/> Tiện lợi, bữa ăn sẵn sàng trong 15 phút <br/> Không chất bảo
-                                            quản <br/> Không màu thực phẩm <br/> Không bột ngọt/bột nêm <br/> Bánh mì, bánh
-                                            bao không bột nổi</Desc>
-                                        <ButtonsWrapper>
-                                            <ButtonLink
-                                                href={'/product/' + product._id}
-                                                outline
-                                                primary
-                                                size='l'
-                                            >
-                                                Xem thêm
-                                            </ButtonLink>
-                                            <Button onClick={addFeaturedToCart} buyBtn size='l'><CartIcon/> Mua
-                                                ngay</Button>
-                                        </ButtonsWrapper>
+                                    <RevealWrapper origin={'left'} delay={0}>
+                                        <ContentWrapper>
+                                            <Title>Thực phẩm năm s<Star/>o</Title>
+                                            <Desc>Tinh hoa thực phẩm Việt chất lượng <br/> Tiện lợi, bữa ăn sẵn sàng
+                                                trong 15 phút <br/> Không chất bảo
+                                                quản <br/> Không màu thực phẩm <br/> Không bột ngọt/bột nêm <br/> Bánh
+                                                mì, bánh
+                                                bao không bột nổi</Desc>
+                                            <ButtonsWrapper>
+                                                <ButtonLink
+                                                    href={'/product/' + product._id}
+                                                    outline
+                                                    primary
+                                                    size='l'
+                                                >
+                                                    Xem thêm
+                                                </ButtonLink>
+                                                <Button onClick={addFeaturedToCart} buyBtn size='l'><CartIcon/> Mua
+                                                    ngay</Button>
+                                            </ButtonsWrapper>
+                                        </ContentWrapper>
                                     </RevealWrapper>
                                 </div>
                             </Column>
                             <RevealWrapper>
-                                <Column>
-
-                                    <img src={product.images[0]} alt=""/>
-                                </Column>
+                                <ImgColumn>
+                                    <CenterImg>
+                                        <img className={'main'} src={product.images?.[0]} alt=""/>
+                                    </CenterImg>
+                                </ImgColumn>
                             </RevealWrapper>
                         </ColumnsWrapper>
                     </Center>

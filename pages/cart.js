@@ -143,9 +143,17 @@ export default function CartPage() {
     }
 
     let total = 0;
-    for (const productId of cartProducts) {
-        const price = products.find(p => p._id === productId)?.price || 0;
-        total += price;
+
+    function getProductPrice(product) {
+        return product.discount > 0 ? product.discountedPrice : product.price;
+    }
+
+    const uniqueCartProducts = new Set(cartProducts);
+    for (const productId of uniqueCartProducts) {
+        const product = products.find(p => p._id === productId);
+        if (product) {
+            total += getProductPrice(product) * cartProducts.filter(id => id === productId).length;
+        }
     }
 
     function formatNumber(num) {
@@ -224,7 +232,7 @@ export default function CartPage() {
                                                     </QuantityLabel>
                                                     <Button onClick={() => moreOfThisProduct(product._id)}>+</Button>
                                                 </td>
-                                                <td>{formatNumber(cartProducts.filter(id => id === product._id).length * product.price)} ₫</td>
+                                                <td>{formatNumber(cartProducts.filter(id => id === product._id).length * getProductPrice(product))} ₫</td>
                                             </tr>
                                         ))}
                                         <tr>

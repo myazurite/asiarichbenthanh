@@ -60,7 +60,7 @@ const WhiteBox = styled(Link)`
     width: 100%;
     overflow: hidden;
     @media screen and (min-width: 768px) {
-      height: 220px;
+      height: 200px;
     }
   }
 `;
@@ -97,7 +97,7 @@ const PriceRow = styled.div`
   margin-bottom: 5px;
   margin-top: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   @media screen and (min-width: 768px) {
@@ -134,7 +134,54 @@ const FlashEffectContainer = styled.div`
   position: relative;
 `;
 
-export default function ProductBox({_id, title, description, price, images, showBuyButton = true}) {
+const OriginalPrice = styled.span`
+  text-decoration: line-through;
+  color: #aaa;
+`;
+
+const DiscountedWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`
+
+const Ribbon = styled.div`
+  width: 110px;
+  height: 110px;
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  z-index: 1;
+  top: 0;
+  right: 0;
+
+  span {
+    width: 150px;
+    height: 34px;
+    top: 20px;
+    right: -40px;
+    position: absolute;
+    display: block;
+    background: #FF0000;
+    font-size: 15px;
+    color: white;
+    text-align: center;
+    line-height: 34px;
+    transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+  }
+`
+
+export default function ProductBox({
+   _id,
+   title,
+   price,
+   discount,
+   discountedPrice,
+   images,
+   showBuyButton = true
+}) {
     const {addProduct} = useContext(CartContext);
     const url = '/product/' + _id;
     const [showFlash, setShowFlash] = useState(false);
@@ -144,39 +191,58 @@ export default function ProductBox({_id, title, description, price, images, show
         setShowFlash(true);
         setTimeout(() => {
             setShowFlash(false);
-        }, 500);
+        }, 300);
     }
 
     function formatNumber(num) {
         return new Intl.NumberFormat('de-DE').format(num);
     }
 
+    function getDisplayedPrice() {
+        if (discount > 0) {
+            return (
+                <DiscountedWrapper>
+                    <OriginalPrice>
+                        {formatNumber(price)} ₫
+                    </OriginalPrice>{" "}
+                    <span>&rarr;</span>
+                    <Price>{formatNumber(discountedPrice)} ₫</Price>
+                </DiscountedWrapper>
+            );
+        } else {
+            return (
+                <div>
+                    {formatNumber(price)} ₫
+                </div>
+            );
+        }
+    }
+
     return (
         <ProductWrapper>
-            <WhiteBox href={url}>
+            {discount > 0 && (
+                <Ribbon>
+                    <span>Giảm {discount}%</span>
+                </Ribbon>
+            )}
+            <WhiteBox href={`/product/${_id}`}>
                 <div>
-                    <Image src={images?.[0]} alt="Image" fill={true} />
+                    <Image src={images?.[0]} alt="Image" fill={true}/>
                     <Title>{title}</Title>
                 </div>
             </WhiteBox>
             <ProductInfoBox>
                 <PriceRow>
-                    <Price>
-                        {formatNumber(price)} ₫
-                    </Price>
-                    {/* Wrap the Button with a FlashEffectContainer */}
-                    <FlashEffectContainer>
-                        {showBuyButton &&
-                            <Button
-                                buyBtn
-                                onClick={handleBuyClick}
-                            >
-                                <CartIcon/> Mua
-                            </Button>
-                        }
-                        {showFlash && <FlashEffect />} {/* Render the flash effect only when showFlash is true */}
-                    </FlashEffectContainer>
+                    {getDisplayedPrice()}
                 </PriceRow>
+                <FlashEffectContainer>
+                    {showBuyButton && (
+                        <Button block buyBtn onClick={handleBuyClick}>
+                            <CartIcon/> Mua
+                        </Button>
+                    )}
+                    {showFlash && <FlashEffect/>}
+                </FlashEffectContainer>
             </ProductInfoBox>
         </ProductWrapper>
     );
