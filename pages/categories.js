@@ -13,7 +13,7 @@ const CategoryGrid = styled.div`
   grid-template-columns: repeat(4, 1fr); // 4 columns on PC
   gap: 20px;
   @media screen and (max-width: 767px) {
-    grid-template-columns: 1fr 1fr; // 1 column on mobile
+    grid-template-columns: 1fr ; // 1 column on mobile
   }
 `;
 
@@ -71,7 +71,7 @@ export default function CategoriesPage({mainCategories, categoriesProducts}) {
         <>
             <Center>
                 <Title>
-                    <span>Danh mục sản phẩm</span>
+                    <span>DANH MỤC SẢN PHẨM</span>
                     {mainCategories.map(cat => (
                         <CategoryWrapper className="" key={cat.id}>
                             <CategoryTitle>

@@ -42,7 +42,7 @@ export default function ProductsPage({products, categories}) {
     return (
         <>
             <Center>
-                <Title>Sản phẩm</Title>
+                <Title>SẢN PHẨM</Title>
                 <div style={{ display: 'flex', width: '100%' }}>
                     <CategoriesList>
                         {categories.map(category => (
