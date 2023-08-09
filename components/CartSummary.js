@@ -75,7 +75,7 @@ function CartSummary() {
         for (const productId of cartProducts) {
             const product = products.find((p) => p._id === productId);
             if (product) {
-                totalPrice += product.price;
+                product.discountedPrice ? totalPrice += product.discountedPrice : totalPrice += product.price;
             }
         }
         return totalPrice;
