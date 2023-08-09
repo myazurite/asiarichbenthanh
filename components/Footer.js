@@ -26,14 +26,16 @@ const FooterColumn = styled.div`
   flex-direction: column;
   align-items: center;
   flex: 1;
-
+  width: 100%;
+  @media screen and (max-width: 767px) {
+    display: block;
+  }
   p {
     color: #D3D3D3;
     padding: 0;
     margin: 5px 0;
     font-size: .9rem;
   }
-
   img {
     border-radius: 5px;
   }
@@ -41,6 +43,9 @@ const FooterColumn = styled.div`
   :last-child {
     justify-content: center;
     align-self: start;
+    @media screen and (max-width: 767px) {
+      display: flex;
+    }
   }
 
   @media screen and (min-width: 768px) {
@@ -52,11 +57,9 @@ const FooterColumn = styled.div`
 const ColumnTitle = styled.h3`
   font-weight: bold;
   color: #fff;
-
   span {
     display: flex;
     gap: 5px;
-    width: 100%;
     justify-content: center;
     align-items: center;
     padding: 10px;
@@ -64,12 +67,16 @@ const ColumnTitle = styled.h3`
     background: #F0E68C;
     border-radius: 5px;
   }
+  @media screen and (max-width: 767px) {
+    text-align: center;
+  }
 `;
 
 const BrandImage = styled.img`
   width: 120px;
   height: auto;
-
+  display: block;
+  margin: auto;
   @media screen and (min-width: 768px) {
     width: 150px;
   }
@@ -78,11 +85,9 @@ const BrandImage = styled.img`
 const AddressWrapper = styled.div`
   display: flex;
   gap: 10px;
-  
   a {
     text-decoration: none;
   }
-
   svg {
     color: #fff;
     margin-top: 5px;
@@ -111,7 +116,6 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   @media screen and (min-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
