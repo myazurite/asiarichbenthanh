@@ -13,6 +13,7 @@ export default async function handler(req, res) {
         phone,
         address,
         cartProducts,
+        orderId
     } = req.body;
 
     await mongooseConnect();
@@ -37,6 +38,7 @@ export default async function handler(req, res) {
         }
     }
     const orderDoc = await Order.create({
+        orderId,
         line_items,
         name,
         phone,

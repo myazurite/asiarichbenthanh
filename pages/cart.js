@@ -84,17 +84,17 @@ export default function CartPage() {
 
     const handleNameChange = (ev) => {
         setName(ev.target.value);
-        setNameError(''); // Clear error message
+        setNameError('');
     }
 
     const handleAddressChange = (ev) => {
         setAddress(ev.target.value);
-        setAddressError(''); // Clear error message
+        setAddressError('');
     }
 
     const handlePhoneChange = (ev) => {
         setPhone(ev.target.value);
-        setPhoneError(''); // Clear error message
+        setPhoneError('');
     }
 
     useEffect(() => {
@@ -116,6 +116,11 @@ export default function CartPage() {
         removeProduct(id);
     }
 
+    function generateRandomOrderId() {
+        const randomId = "AB" + Math.floor(1000000 + Math.random() * 9000000);
+        return randomId.toString();
+    }
+
     async function goToPayment() {
         let isValid = true;
         if (!name) {
@@ -132,8 +137,9 @@ export default function CartPage() {
         }
 
         if (isValid) {
+            const orderId = generateRandomOrderId();
             const response = await axios.post('/api/checkout', {
-                name, phone, address, cartProducts
+                name, phone, address, cartProducts, orderId
             });
             if (response.data.url) {
                 clearCart();

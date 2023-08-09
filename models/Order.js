@@ -4,9 +4,7 @@ const LineItemSchema = new Schema({
   product: {type:Schema.Types.ObjectId, ref:'Product'},
   name: String,
   quantity: Number,
-  price_data: {
-    unit_amount: Number,
-  },
+  price_data: {unit_amount: Number},
 });
 
 const OrderSchema = new Schema({
@@ -16,6 +14,7 @@ const OrderSchema = new Schema({
   phone: String,
   total_price: Number,
   paid: Boolean,
+  orderId: String
 }, {
   timestamps: true,
 });

@@ -9,7 +9,7 @@ import SearchIcon from "@/components/SearchIcon"
 const StyledHeader = styled.header`
   position: sticky;
   top: 0;
-  background-color: #005100;
+  background-color: #164d26;
   z-index: 1;
 `;
 
@@ -36,7 +36,7 @@ const StyledNav = styled.nav`
   bottom: 0;
   width: 70%;
   padding: 70px 20px 20px;
-  background-color: #005100;
+  background-color: #164d26;
   transform: translateX(${(props) => (props.mobileNavActive ? "0" : "100%")});
   transition: transform 0.3s ease-in-out;
   z-index: 2;
