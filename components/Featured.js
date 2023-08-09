@@ -55,7 +55,7 @@ const PromoBg = styled.div`
   }
 `
 const Title = styled.h1`
-  font-family: ${montAlt.style.fontFamily};
+  // font-family: ${montAlt.style.fontFamily};
   color: #164d26;
   margin: 0;
   font-weight: 500;
