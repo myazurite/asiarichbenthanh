@@ -8,14 +8,8 @@ import {useContext} from "react";
 import {CartContext} from "@/components/CartContext";
 import Image from "next/image";
 import {RevealWrapper} from "next-reveal";
-import {Great_Vibes} from "next/font/google";
 import {Montserrat_Alternates} from "next/font/google";
 import Star from "@/components/icons/Star";
-
-const gv = Great_Vibes({
-    weight: '400',
-    subsets: ['latin'],
-});
 
 const montAlt = Montserrat_Alternates({
     weight: ['300', '400', '500', '600', '700'],
@@ -62,9 +56,9 @@ const PromoBg = styled.div`
 `
 const Title = styled.h1`
   font-family: ${montAlt.style.fontFamily};
-  color: #000;
+  color: #164d26;
   margin: 0;
-  font-weight: normal;
+  font-weight: 500;
   font-size: 1.5rem;
   display: flex;
   align-items: center;
@@ -166,7 +160,7 @@ export default function Featured({product}) {
                                 <div>
                                     <RevealWrapper origin={'left'} delay={0}>
                                         <ContentWrapper>
-                                            <Title>Thực phẩm năm s<Star/>o</Title>
+                                            <Title>THỰC PHẨM NĂM S<Star/>O</Title>
                                             <Desc>Tinh hoa thực phẩm Việt chất lượng <br/> Tiện lợi, bữa ăn sẵn sàng
                                                 trong 15 phút <br/> Không chất bảo
                                                 quản <br/> Không màu thực phẩm <br/> Không bột ngọt/bột nêm <br/> Bánh

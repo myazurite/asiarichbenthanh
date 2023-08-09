@@ -1,16 +1,13 @@
 import styled from 'styled-components';
 import logo from "@/public/assets/Logo.jpg";
-import {AiOutlinePhone} from "react-icons/ai";
 import {FaFacebookSquare, FaShippingFast} from "react-icons/fa";
 import Image from "next/image";
-import qrbank from "@/public/assets/qrbank.jpg"
 import Zalo from "@/components/icons/Zalo";
-import {BsPinMap} from "react-icons/bs";
+import {BsPinMap, BsTelephone} from "react-icons/bs";
 import Link from "next/link";
 import visa from "@/public/assets/footer/visa-logo-png-2015.png";
 import mc from "@/public/assets/footer/mastercard-26161.png";
 import cash from "@/public/assets/footer/cash.png";
-import jcb from "@/public/assets/footer/jcb.png";
 import ibank from "@/public/assets/footer/banking.png";
 
 const Footer = styled.footer`
@@ -135,12 +132,11 @@ export default function FooterComponent() {
                         <span><BsPinMap size={20}/></span>
                         <div>
                             <p>SH13, CC One Verandah</p>
-                            <p>SH13, CC One Verandah</p>
-                            <p>cổng Tạ Hiện</p>
-                            <p>P.Thạnh Mỹ Lợi, Q.2, Tp. Thủ Đức</p>
+                            <p>Cổng Tạ Hiện, P. Thạnh Mỹ Lợi</p>
+                            <p>Quận 2, Tp. Thủ Đức</p>
                         </div>
                     </AddressWrapper>
-                    <AddressWrapper><AiOutlinePhone size={20}/>
+                    <AddressWrapper><BsTelephone size={20}/>
                         <p>Hotline: (+84) 909 400 310</p>
                     </AddressWrapper>
                     <AddressWrapper>
@@ -170,14 +166,6 @@ export default function FooterComponent() {
                                 alt="Mastercard"
                                 src={mc}
                                 width={35}
-                                height={35}
-                            />
-                        </div>
-                        <div>
-                            <Image
-                                alt="JCB"
-                                src={jcb}
-                                width={40}
                                 height={35}
                             />
                         </div>
