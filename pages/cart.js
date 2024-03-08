@@ -180,7 +180,7 @@ export default function CartPage() {
         }
     }, []);
 
-    if (router.isReady && router.asPath.includes('success')) {
+    if (router.isReady && router.asPath.includes('success')){
         return (
             <>
                 <Center>
